@@ -1,0 +1,23 @@
+{
+  "version": 2,
+  "public": true,
+  "name": "s3-example",
+  "alias": [
+    "s3-example"
+  ],
+  "regions": ["sfo1"],
+  "env": {
+    "bucket_name": "@bucket_name",
+    "access_key": "@access_key",
+    "secret_key": "@secret_key",
+    "region": "@region"
+  },
+  "builds": [
+    {"src": "api/handlers/read.js", "use": "@now/node"},
+    {"src": "api/handlers/create.js", "use": "@now/node"}
+  ],
+  "routes": [
+    {"src": "^/s3$", "methods":["POST"], "dest": "/api/handlers/create.js"},
+    {"src": "^/s3/.+$", "methods":["GET"], "dest": "/api/handlers/read.js"}
+  ]
+}
